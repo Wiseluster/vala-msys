@@ -12,10 +12,10 @@ makedepends=("gcc"
              "libxslt")
 depends=("glib2")
 source=(https://download.gnome.org/sources/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz)
-sha256sums=('9ae6cdefd3409eabe4f072921844dc31f9d4488211b6d077fa48855fd00053fd')
+sha256sums=('6b17bd339414563ebc51f64b0b837919ea7552d8a8ffa71cdc837d25c9696b83')
 
 prepare() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd "${srcdir}/${pkgname}-${pkgver}"
   autoreconf -fiv
 }
 
@@ -26,8 +26,9 @@ build() {
     --prefix=/usr \
     --build=${CHOST} \
     --host=${CHOST} \
+    --target=${CHOST} \
     --enable-shared
-  make
+  make -j1
 }
 
 package() {
